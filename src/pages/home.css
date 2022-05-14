@@ -1,0 +1,12 @@
+
+.main-div {
+    /* background-color: #282c34; */
+    background-color: #00D8D7;
+    min-height: 100vh;
+    padding: 15px;
+    justify-content: center;
+}
+
+.div {
+    display: flex;
+}
