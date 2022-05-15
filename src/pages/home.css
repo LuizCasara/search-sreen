@@ -1,12 +1,15 @@
 .main-div {
     background-color: #00D8D7;
     min-height: 100vh;
-    padding: 15px;
     justify-content: center;
     width: 100%;
 }
 
-.flex {
+.button-div {
     word-break: break-all;
     overflow-wrap: break-word;
+}
+
+.container{
+    padding: 10px;
 }

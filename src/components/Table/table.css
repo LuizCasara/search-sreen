@@ -21,6 +21,7 @@
     background-color: #009879;
     color: #ffffff;
     text-align: center;
+    min-width: 100px;
 }
 
 .table th,
