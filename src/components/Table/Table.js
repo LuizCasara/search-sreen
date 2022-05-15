@@ -19,7 +19,7 @@ const tableHeader = [
     "Url",
 ]
 
-export default function Table({data, headers = tableHeader}) {
+export default function Table({id, data, headers = tableHeader}) {
     const [filteredData, setFilteredData] = useState(data);
 
     useEffect(()=>{
@@ -49,8 +49,8 @@ export default function Table({data, headers = tableHeader}) {
     const handleChangeFilter = (value) => {
         if (Array.isArray(data) && value !== null) {
             const newData = data.filter(item => 
-                item.login.includes(value.target.value) ||
-                item.id.toString().includes(value.target.value));
+                item.login.toUpperCase().includes(value.target.value.toUpperCase()) ||
+                item.id.toString().toUpperCase().includes(value.target.value.toUpperCase()));
             setFilteredData(newData);
         } else {
             setFilteredData(data);
@@ -93,8 +93,8 @@ export default function Table({data, headers = tableHeader}) {
 
     return (
         <>
-            <InputText placeholder="Filtrar" onChange={handleChangeFilter}/>
-            <div className='table-div'>
+            <InputText id="input-filter" placeholder="Filtrar" onChange={handleChangeFilter}/>
+            <div id={id} className='table-div'>
                 <table className='table'>
                     <thead>
                         <tr className='tr'>
@@ -111,6 +111,7 @@ export default function Table({data, headers = tableHeader}) {
 }
 
 Table.propTypes = {
+    id: PropTypes.string,
     data: PropTypes.array,
     headers: PropTypes.array,
 };

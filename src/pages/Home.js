@@ -68,8 +68,8 @@ export default function Home() {
     function renderButtons() {
         return (
             <div className='button-div'>
-                <Button handleClick={handleLoadUsers} label="Carregar dados" />
-                <Button handleClick={handleClearUsers} label="Limpar dados" disabled={usersList == null} />
+                <Button id="btn-load-data" handleClick={handleLoadUsers} label="Carregar dados" />
+                <Button id="btn-clear-data" handleClick={handleClearUsers} label="Limpar dados" disabled={usersList == null} />
             </div>
         )
     }
@@ -83,7 +83,7 @@ export default function Home() {
                         <img src={logo} className='App-logo' alt="dock loading logo" />
                         {renderButtons()}
                         <Loading loading={loading} />
-                        <Table data={usersList} />
+                        <Table id="table-data" data={usersList} />
                     </>
                 }
             </div>
