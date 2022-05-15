@@ -1,18 +1,22 @@
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { useEffect, useState } from 'react';
 import InputText from '../Input/InputText';
 import './table.css';
 
 const tableHeader = [
-    "Id",
     "Avatar",
     "Login",
+    "Name",
+    "Email",
+    "Company",
     "Type",
     "Admin",
+    "Followers",
+    "Following",
+    "Repositories",
+    "Created At",
     "Url",
-    // "Followers",
-    // "Following",
-    // "Repos",
 ]
 
 export default function Table({data, headers = tableHeader}) {
@@ -53,13 +57,6 @@ export default function Table({data, headers = tableHeader}) {
         }
     }
 
-    const renderCount = (url) => { 
-        return fetch(url)
-            .then(response => {
-                return response.json();
-            })
-    }
-
     const mountAndRenderTrs = (data) => {
         if (!Array.isArray(data)) {
             return <></>;
@@ -67,24 +64,21 @@ export default function Table({data, headers = tableHeader}) {
 
         const trList = [];
         data.forEach((user, idx) => {
-            // return Promise.all([
-            //     renderCount(user.followers_url),
-            //     renderCount(user.following_url),
-            //     renderCount(user.repos_url),
-            // ]).then(([followersCount, followingCount, reposCount]) => {
-            // });
             trList.push(
                 <tbody key={`tbody-key-${idx}`} >
                     <tr key={`tr-key-${idx}`} className={idx % 2 === 1 ? 'active-row' : ''}>
-                        <td>{user.id}</td>
                         <td>{renderAvatar(user.id, user.avatar_url)}</td>
                         <td className='login'>{user.login}</td>
+                        <td>{user.name}</td>
+                        <td>{user.email}</td>
+                        <td>{user.company}</td>
                         <td>{user.type}</td>
                         <td>{renderIsAdmin(user.site_admin)}</td>
+                        <td>{user.followers?.totalCount}</td>
+                        <td>{user.following?.totalCount}</td>
+                        <td>{user.repositories?.totalCount}</td>
+                        <td>{moment(user.CreatedAt).format('MMMM Do YYYY')}</td>
                         <td>{renderUrl(user.html_url)}</td>
-                        {/* <td>{user.followers}</td>
-                        <td>{user.following}</td>
-                        <td>{user.public_repos}</td> */}
                     </tr>
                 </tbody>
             );
