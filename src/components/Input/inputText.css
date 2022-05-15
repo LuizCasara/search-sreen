@@ -1,0 +1,21 @@
+.input-div {
+    padding: 10px 0;
+    justify-content: center;
+    display: flex;
+}
+
+.input {
+    border-radius: 10px;
+    border-style: none;
+    overflow: hidden;
+    padding: 15px 15px;
+    text-decoration: none;
+    white-space: nowrap;
+    width: 400px;
+}
+
+@media (max-width: 768px) {
+    .input {
+        padding: 10px 10px;
+    }
+}

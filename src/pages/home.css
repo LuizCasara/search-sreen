@@ -1,0 +1,15 @@
+.main-div {
+    background-color: #00D8D7;
+    min-height: 100vh;
+    justify-content: center;
+    width: 100%;
+}
+
+.button-div {
+    word-break: break-all;
+    overflow-wrap: break-word;
+}
+
+.container{
+    padding: 10px;
+}
