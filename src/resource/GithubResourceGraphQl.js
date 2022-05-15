@@ -1,6 +1,6 @@
 import { request, gql } from 'graphql-request'
 
-const AUTH = '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';
+const AUTH = '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';
 const DEFAULT_URL = 'https://api.github.com/graphql';
 
 const userQuery = (user) => gql`
