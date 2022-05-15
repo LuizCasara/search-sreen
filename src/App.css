@@ -1,9 +1,14 @@
+/* Css global */
+
 .App {
   text-align: center;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
 }
 
 .App-logo {
-  height: 10vmin;
+  height: 30vmin;
   pointer-events: none;
   padding: 10px 20px;
 }
