@@ -10,6 +10,6 @@ export default function InputText({onChange, placeholder}) {
 }
 
 InputText.propTypes = {
-    onChange: PropTypes.object,
+    onChange: PropTypes.func,
     placeholder: PropTypes.string,
 };
