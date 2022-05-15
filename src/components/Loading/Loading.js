@@ -1,4 +1,5 @@
-import logo from '../assets/dock-logo.png';
+import PropTypes from 'prop-types';
+import logo from '../../assets/dock-logo.png';
 import './loading.css';
 
 export default function Loading({loading}) {
@@ -7,9 +8,13 @@ export default function Loading({loading}) {
             {loading && 
                 <header className="loading-header">
                     <img src={logo} className='App-logo-loading' alt="dock loading logo" />
-                    <p class="loading-label">Loading...</p>
+                    <p className="loading-label">Loading...</p>
                 </header>
             }
         </>
     )
 }
+
+Loading.propTypes = {
+    loading: PropTypes.bool,
+};
