@@ -10,7 +10,7 @@ export default function Button({handleClick, label, disabled}) {
 }
 
 Button.propTypes = {
-    handleClick: PropTypes.object,
+    handleClick: PropTypes.func,
     label: PropTypes.string,
     disabled: PropTypes.bool,
 };
