@@ -1,54 +1,22 @@
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { useEffect, useState } from 'react';
 import InputText from '../Input/InputText';
 import './table.css';
+import { userTrs, tableHeaderUser } from './templates/UserTable';
+import { userRepositoryTrs, tableHeaderUserRepository, renderUserIdentification } from './templates/UserRepositoryTable';
+import { SEARCH_TYPE } from '../../helpers/constants';
 
-const tableHeader = [
-    "Avatar",
-    "Login",
-    "Name",
-    "Email",
-    "Company",
-    "Type",
-    "Admin",
-    "Followers",
-    "Following",
-    "Repositories",
-    "Created At",
-    "Url",
-]
-
-export default function Table({id, data, headers = tableHeader}) {
+export default function Table({ id, data, type }) {
     const [filteredData, setFilteredData] = useState(data);
 
-    useEffect(()=>{
+    useEffect(() => {
         setFilteredData(data);
     }, [data]);
 
-    const renderAvatar = (id, url) => {
-        return (
-            <img src={url} className='avatar' alt={`User Avatar - ${id}`} />
-        )
-    }
-
-    const renderUrl = (url) => {
-        return (
-            <a href={url} target="_blank" rel="noopener noreferrer">bio link</a>
-        )
-    }
-
-    const renderIsAdmin = (isAdmin) => {
-        return (
-            <>
-                {isAdmin ? '🟢' : '🔴'}
-            </>
-        )
-    }
 
     const handleChangeFilter = (value) => {
         if (Array.isArray(data) && value !== null) {
-            const newData = data.filter(item => 
+            const newData = data.filter(item =>
                 item.login.toUpperCase().includes(value.target.value.toUpperCase()) ||
                 item.id.toString().toUpperCase().includes(value.target.value.toUpperCase()));
             setFilteredData(newData);
@@ -57,52 +25,43 @@ export default function Table({id, data, headers = tableHeader}) {
         }
     }
 
-    const mountAndRenderTrs = (data) => {
-        if (!Array.isArray(data)) {
-            return <></>;
+    const getHeaders = () => {
+        const mountTrs = (list) => {
+            return (
+                <thead>
+                    <tr className='tr'>
+                        {list.map(header => {
+                            return <th key={`th-key-${header}`}>{header}</th>
+                        })}
+                    </tr>
+                </thead>
+            )
         }
 
-        const trList = [];
-        data.forEach((user, idx) => {
-            trList.push(
-                <tbody key={`tbody-key-${idx}`} >
-                    <tr key={`tr-key-${idx}`} className={idx % 2 === 1 ? 'active-row' : ''}>
-                        <td>{renderAvatar(user.id, user.avatar_url)}</td>
-                        <td className='login'>{user.login}</td>
-                        <td>{user.name}</td>
-                        <td>{user.email}</td>
-                        <td>{user.company}</td>
-                        <td>{user.type}</td>
-                        <td>{renderIsAdmin(user.site_admin)}</td>
-                        <td>{user.followers?.totalCount}</td>
-                        <td>{user.following?.totalCount}</td>
-                        <td>{user.repositories?.totalCount}</td>
-                        <td>{moment(user.CreatedAt).format('MMMM Do YYYY')}</td>
-                        <td>{renderUrl(user.html_url)}</td>
-                    </tr>
-                </tbody>
-            );
-        });
-
-        return trList;
+        if (type === SEARCH_TYPE.USER) {
+            return mountTrs(tableHeaderUser);
+        }
+        return mountTrs(tableHeaderUserRepository);
     }
 
-    if (!Array.isArray(data)) {
-        return <></>;
+    const mountAndRenderTrs = (filteredData) => {
+        if (type === SEARCH_TYPE.USER) {
+            return userTrs(filteredData);
+        }
+        return userRepositoryTrs(filteredData);
+    }
+
+    if (filteredData == null || type == null) {
+        return <></>
     }
 
     return (
         <>
-            <InputText id="input-filter" placeholder="Filtrar" onChange={handleChangeFilter}/>
+            <InputText id="input-filter" placeholder="Filtrar" onChange={handleChangeFilter} />
             <div id={id} className='table-div'>
+                {renderUserIdentification(type, filteredData)}
                 <table className='table'>
-                    <thead>
-                        <tr className='tr'>
-                            {headers.map(header => {
-                                return <th key={`th-key-${header}`}>{header}</th>
-                            })}
-                        </tr>
-                    </thead>
+                    {getHeaders()}
                     {mountAndRenderTrs(filteredData)}
                 </table>
             </div>
@@ -112,6 +71,6 @@ export default function Table({id, data, headers = tableHeader}) {
 
 Table.propTypes = {
     id: PropTypes.string,
-    data: PropTypes.array,
-    headers: PropTypes.array,
+    type: PropTypes.string,
+    data: PropTypes.object || PropTypes.array,
 };

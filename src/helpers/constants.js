@@ -1,0 +1,4 @@
+export const SEARCH_TYPE = {
+    USER: "USER",
+    USER_REPOSITORY: "USER_REPOSITORY",
+}
