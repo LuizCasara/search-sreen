@@ -14,11 +14,15 @@ export default function Table({ id, data, type }) {
     }, [data]);
 
 
-    const handleChangeFilter = (value) => {
+    const handleChangeFilter = (input) => {
+        const value = input.target.value;
+
         if (Array.isArray(data) && value !== null) {
             const newData = data.filter(item =>
-                item.login.toUpperCase().includes(value.target.value.toUpperCase()) ||
-                item.id.toString().toUpperCase().includes(value.target.value.toUpperCase()));
+                item.login?.toUpperCase().includes(value.toUpperCase()) ||
+                item.id?.toString().toUpperCase().includes(value.toUpperCase()) ||
+                item.description?.toString().toUpperCase().includes(value.toUpperCase()) ||
+                item.name?.toString().toUpperCase().includes(value.toUpperCase()));
             setFilteredData(newData);
         } else {
             setFilteredData(data);
@@ -57,7 +61,7 @@ export default function Table({ id, data, type }) {
 
     return (
         <>
-            <InputText id="input-filter" placeholder="Filtrar" onChange={handleChangeFilter} />
+            {type === SEARCH_TYPE.USER && <InputText id="input-filter" placeholder="Filtrar" onChange={handleChangeFilter} />}
             <div id={id} className='table-div'>
                 {renderUserIdentification(type, filteredData)}
                 <table className='table'>

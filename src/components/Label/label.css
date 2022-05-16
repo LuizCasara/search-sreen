@@ -1,9 +1,9 @@
 .label {
-    /* display: flex; */
     background-color: #00987991;
     border-radius: 10px;
     width: 100px;
-    /* justify-content: center; */
+    word-break: break-all;
+    overflow-wrap: break-word;
 }
 
 .label-field {
