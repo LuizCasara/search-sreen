@@ -6,9 +6,12 @@ This project proposal a screen to load some users data at Github api;
 
 In the project directory, you can run:
 
+### `npm install`
+To prepair and install all the aplication and dependencies.
+
 ### `npm start`
 
-Runs the app in the development mode.\
+Runs the app in the development mode.
 ### `e2e:start`
 
 Launches the E2E (Cyress) on UI view.
