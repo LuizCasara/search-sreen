@@ -1,0 +1,18 @@
+.label {
+    /* display: flex; */
+    background-color: #00987991;
+    border-radius: 10px;
+    width: 100px;
+    /* justify-content: center; */
+}
+
+.label-field {
+    padding: 0 5px;
+    font-size: 12px;
+}
+
+.label-value {
+    padding: 0 5px;
+    font-weight: bold;
+    font-size: 12px;
+}
