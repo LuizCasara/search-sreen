@@ -7,6 +7,7 @@ import getUsers from '../resource/GithubResource.js';
 import LoadingUserDataByGraphql from '../resource/GithubResourceGraphQl.js';
 import './home.css';
 import '../resource/GithubResourceGraphQl.js'
+import { SEARCH_TYPE } from '../helpers/constants.js';
 
 const TIME_WAITING_LOADING = '1000';
 
@@ -14,6 +15,7 @@ export default function Home() {
     const [firstLoading, setFirstLoading] = useState(true);
     const [loading, setLoading] = useState(false);
     const [usersList, setUsersList] = useState(null);
+    const [type, setType] = useState(null);
 
     useEffect(() => {
         // timer para simular um loading da tela principal
@@ -22,13 +24,25 @@ export default function Home() {
         }, TIME_WAITING_LOADING);
     }, []);
 
-    const loadingInitialData = async () => {
+    const loadUsers = async () => {
+        handleClearUsers();
         setLoading(true);
+        setType(SEARCH_TYPE.USER);
         const users = await getUsers();
         setUsersList(users);
         setLoading(false);
         // a tela é renderizada com as informações base, mas vai buscar mais dados por user
-        loadMoreDataByUser(users);
+        // comentado pois estava estourando o limite de requests com a chave publica
+        // loadMoreDataByUser(users);
+    }
+
+    const loadRandomUser = async () => {
+        handleClearUsers();
+        setLoading(true);
+        setType(SEARCH_TYPE.USER_REPOSITORY);
+        const users = await LoadingUserDataByGraphql();
+        setUsersList(users);
+        setLoading(false);
     }
 
     const loadMoreDataByUser = async (users) => {
@@ -57,18 +71,16 @@ export default function Home() {
         setUsersList(newUsers);
     }
 
-    const handleLoadUsers = () => {
-        loadingInitialData();
-    }
-
     const handleClearUsers = () => {
         setUsersList(null);
+        setType(null);
     }
 
     function renderButtons() {
         return (
             <div className='button-div'>
-                <Button id="btn-load-data" handleClick={handleLoadUsers} label="Carregar dados" />
+                <Button id="btn-load-data" handleClick={loadUsers} label="Carregar usuários" />
+                <Button id="btn-load-data" handleClick={loadRandomUser} label="Carregar usuário aleatório" />
                 <Button id="btn-clear-data" handleClick={handleClearUsers} label="Limpar dados" disabled={usersList == null} />
             </div>
         )
@@ -83,7 +95,7 @@ export default function Home() {
                         <img src={logo} className='App-logo' alt="dock loading logo" />
                         {renderButtons()}
                         <Loading loading={loading} />
-                        <Table id="table-data" data={usersList} />
+                        <Table id="table-data" data={usersList} type={type} />
                     </>
                 }
             </div>

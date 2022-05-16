@@ -53,3 +53,8 @@
 .login::first-letter {
     text-transform:capitalize;
 }
+
+.label-div{
+    display: flex;
+    justify-content: space-around;
+}
