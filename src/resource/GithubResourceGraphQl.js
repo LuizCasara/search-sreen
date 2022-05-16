@@ -1,7 +1,7 @@
 import { request, gql } from 'graphql-request'
 import getRandomInt from '../helpers/utils';
 
-const AUTH = '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';
+const AUTH = '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';
 const DEFAULT_URL = 'https://api.github.com/graphql';
 const USERS_LOGIN = ["mojombo","defunkt","pjhyett","wycats","ezmobius","ivey","evanphx","vanpelt","wayneeseguin","brynary","kevinclark","technoweenie","macournoyer","takeo","caged","topfunky","anotherjesse","roland","lukas","fanvsfan","tomtt","railsjitsu","nitay","kevwil","Dave","jamesgolick","atmos","errfree","mojodna","bmizerany",];
 
